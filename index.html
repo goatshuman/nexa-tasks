@@ -16,8 +16,10 @@ nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:spa
 .nav-links a:hover{color:var(--text)}
 .nav-cta{background:var(--purple);color:#fff;border:none;padding:.6rem 1.4rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:.2s}
 .nav-cta:hover{background:#6d28d9}
-section.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 5rem;position:relative}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,.25),transparent)}
+section.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 5rem;position:relative;overflow:hidden}
+.hero-img{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:.08;filter:saturate(0)}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,.35),transparent),linear-gradient(to bottom,rgba(13,11,30,.6),rgba(13,11,30,.95))}
+.hero-inner{position:relative;z-index:1}
 .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4);color:var(--purple-light);padding:.4rem 1rem;border-radius:99px;font-size:.8rem;font-weight:500;margin-bottom:2rem}
 h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem}
 .gradient-text{background:linear-gradient(135deg,#a78bfa 0%,#7c3aed 50%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -40,12 +42,13 @@ section{padding:6rem 5%}
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3.5rem}
 .feature-card{background:var(--dark);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:left;transition:.3s}
 .feature-card:hover{border-color:var(--purple);transform:translateY(-4px)}
-.feature-icon{width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;font-size:1.4rem}
+.feature-icon{width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
+.feature-icon svg{width:22px;height:22px;stroke:var(--purple-light);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .feature-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.6rem}
 .feature-card p{color:var(--muted);font-size:.9rem;line-height:1.6}
 .how{max-width:900px;margin:0 auto;text-align:center}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3.5rem;position:relative}
-.step{position:relative;text-align:center;padding:2rem 1.5rem;background:var(--card);border-radius:16px;border:1px solid var(--border)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3.5rem}
+.step{text-align:center;padding:2rem 1.5rem;background:var(--card);border-radius:16px;border:1px solid var(--border)}
 .step-num{width:44px;height:44px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem}
 .step h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
 .step p{color:var(--muted);font-size:.88rem;line-height:1.6}
@@ -57,8 +60,8 @@ section{padding:6rem 5%}
 .price sup{font-size:1.4rem;vertical-align:super}
 .price-period{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem}
 .price-features{list-style:none;text-align:left;margin-bottom:2rem}
-.price-features li{padding:.5rem 0;font-size:.9rem;color:var(--muted);border-bottom:1px solid var(--border)}
-.price-features li::before{content:'✓ ';color:var(--purple-light)}
+.price-features li{padding:.5rem 0;font-size:.9rem;color:var(--muted);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem}
+.price-features li::before{content:'';display:inline-block;width:16px;height:16px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a78bfa' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;flex-shrink:0}
 footer{border-top:1px solid var(--border);padding:3rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 footer p{color:var(--muted);font-size:.88rem}
 footer a{color:var(--purple-light);text-decoration:none}
@@ -76,12 +79,13 @@ footer a{color:var(--purple-light);text-decoration:none}
   <button class="nav-cta">Get Started Free</button>
 </nav>
 <section class="hero">
-  <div>
-    <div class="badge">⚡ Trusted by 12,000+ teams worldwide</div>
+  <img class="hero-img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80&auto=format&fit=crop" alt="workspace"/>
+  <div class="hero-inner">
+    <div class="badge">&#9889; Trusted by 12,000+ teams worldwide</div>
     <h1>Ship faster.<br/><span class="gradient-text">Stay organized.</span></h1>
     <p>NexaTasks brings your team's work together in one intelligent workspace. Plan sprints, track progress, and deliver projects on time — every time.</p>
     <div class="cta-group">
-      <button class="btn-primary">Start Free Trial →</button>
+      <button class="btn-primary">Start Free Trial &rarr;</button>
       <button class="btn-secondary">View Demo</button>
     </div>
     <div class="stats">
@@ -98,12 +102,12 @@ footer a{color:var(--purple-light);text-decoration:none}
     <h2 class="section-title">Everything your team needs</h2>
     <p class="section-sub" style="margin:0 auto">Powerful tools without the complexity. Built for modern development teams.</p>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">📋</div><h3>Smart Kanban Boards</h3><p>Drag-and-drop boards that adapt to your workflow. Visualize progress across every sprint.</p></div>
-      <div class="feature-card"><div class="feature-icon">⏱️</div><h3>Time Tracking</h3><p>Built-in timers and automated logging. Know exactly where your hours are going.</p></div>
-      <div class="feature-card"><div class="feature-icon">🔗</div><h3>100+ Integrations</h3><p>Connect GitHub, Slack, Figma, Jira and more. Your stack, all in one place.</p></div>
-      <div class="feature-card"><div class="feature-icon">📊</div><h3>Analytics Dashboard</h3><p>Real-time velocity charts, burndown graphs, and team performance insights.</p></div>
-      <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Task Assistant</h3><p>Auto-generate subtasks, estimate story points, and detect blockers before they happen.</p></div>
-      <div class="feature-card"><div class="feature-icon">🔒</div><h3>Enterprise Security</h3><p>SOC 2 Type II certified. SSO, audit logs, and granular role-based access control.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><h3>Smart Kanban Boards</h3><p>Drag-and-drop boards that adapt to your workflow. Visualize progress across every sprint.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg></div><h3>Time Tracking</h3><p>Built-in timers and automated logging. Know exactly where your hours are going.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>100+ Integrations</h3><p>Connect GitHub, Slack, Figma, Jira and more. Your stack, all in one place.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3>Analytics Dashboard</h3><p>Real-time velocity charts, burndown graphs, and team performance insights.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3>AI Task Assistant</h3><p>Auto-generate subtasks, estimate story points, and detect blockers before they happen.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Enterprise Security</h3><p>SOC 2 Type II certified. SSO, audit logs, and granular role-based access control.</p></div>
     </div>
   </div>
 </section>
@@ -130,7 +134,7 @@ footer a{color:var(--purple-light);text-decoration:none}
   </div>
 </section>
 <footer>
-  <p>© 2025 NexaTasks. All rights reserved.</p>
+  <p>&copy; 2026 NexaTasks. All rights reserved.</p>
   <p>Built by <a href="https://github.com/goatshuman">Anshuman</a></p>
 </footer>
 </body>
